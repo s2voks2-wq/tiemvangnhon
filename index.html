@@ -176,33 +176,13 @@
             transition: all 0.3s ease;
         }
 
-        /* --- Chạy chữ --- */
-        .marquee-container {
+        .last-updated {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: normal;
+            opacity: 0.8;
+            text-align: center;
             margin-top: 15px;
-            overflow: hidden;
-            position: relative;
-            height: 40px;
-      
-        }
-
-        .marquee-content {
-            position: absolute;
-            white-space: nowrap;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #f4dc60;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-            animation: marquee 15s linear infinite;
-            line-height: 40px;
-        }
-
-        @keyframes marquee {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(100%);
-            }
         }
 
         /* --- Trạng thái --- */
@@ -266,14 +246,8 @@
                 height: calc(100% - 40px);
             }
 
-            .marquee-container {
-                height: 35px;
-                margin-top: 10px;
-            }
-            
-            .marquee-content {
-                font-size: 1.3rem;
-                line-height: 35px;
+            .last-updated {
+                font-size: 0.9rem; /* Giảm font-size */
             }
         }
 
@@ -321,14 +295,8 @@
                 height: calc(100% - 50px);
             }
 
-            .marquee-container {
-                height: 50px;
-                margin-top: 20px;
-            }
-            
-            .marquee-content {
-                font-size: 1.8rem;
-                line-height: 50px;
+            .last-updated {
+                font-size: 1.2rem;
             }
         }
         
@@ -354,14 +322,14 @@
 
     <!-- Tiêu đề và đồng hồ số cùng hàng -->
     <div class="title-section">
-        <h1 class="gold-title">        </h1>
+      
         <h1 class="gold-title">        </h1>
         <h1 class="gold-title">      </h1>
         <h1 class="gold-title">GIÁ VÀNG HÔM NAY</h1>
         <h1 class="gold-title">                     </h1>
 <div class="time-display" id="digitalTime">00:00:00</div>
-            <div class="date-display" id="dateInfo"></div>
        
+        <div class="date-display" id="dateInfo"></div>
     </div>
 
     <!-- Nội dung chính -->
@@ -373,10 +341,7 @@
                     <div class="loading">Đang tải dữ liệu...</div>
                 </div>
             </div>
-            <!-- Chạy chữ thay thế cho cập nhật lần cuối -->
-            <div class="marquee-container">
-                <div class="marquee-content">Chất Lượng Vàng, Niềm Tin Vàng</div>
-            </div>
+            <div class="last-updated" id="lastUpdated"></div>
         </div>
     </div>
 </div>
@@ -501,11 +466,11 @@
         const day = now.getDate().toString().padStart(2, '0');
         const month = (now.getMonth() + 1).toString().padStart(2, '0');
         const year = now.getFullYear();
-        const solarDateString = `Ngày ${day}/${month}/${year} (Dương lịch)`;
+        const solarDateString = ` ${day}/${month}/${year}`;
 
         // Tính ngày âm lịch
         const lunar = getLunarDate(now);
-        const lunarDateString = `Ngày ${lunar.day} tháng ${lunar.month} năm ${lunar.year} (Âm lịch)`;
+        const lunarDateString = ` ${lunar.day}/${lunar.month}/${lunar.year} (Âm lịch)`;
 
         // Cập nhật DOM
         const timeElement = document.getElementById('digitalTime');
@@ -560,6 +525,7 @@
             if (data.values && data.values.length > 0) {
                 saveToLocal(data.values);
                 renderTable(data.values);
+                updateLastUpdatedTime();
                 console.log('Dữ liệu đã được cập nhật từ Google Sheets');
             } else {
                 throw new Error('Không có dữ liệu trong bảng');
@@ -594,6 +560,7 @@
                     tableContainer.innerHTML = '<div class="error">Không thể tải dữ liệu. Vui lòng kiểm tra kết nối mạng.</div>';
                 }
             }
+            updateLastUpdatedTime();
         }
     }
 
@@ -631,6 +598,23 @@
         tableContainer.innerHTML = html;
     }
 
+    /* CẬP NHẬT THỜI GIAN */
+    function updateLastUpdatedTime() {
+        const lastUpdatedElement = document.getElementById('lastUpdated');
+        if (lastUpdatedElement) {
+            const now = new Date();
+            const timeString = now.toLocaleString('vi-VN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            lastUpdatedElement.textContent = `Cập nhật lần cuối: ${timeString}`;
+        }
+    }
+
     /* KHỞI TẠO ỨNG DỤNG */
     function init() {
         console.log('Khởi tạo ứng dụng...');
@@ -663,5 +647,3 @@
 </script>
 </body>
 </html>
-
-
