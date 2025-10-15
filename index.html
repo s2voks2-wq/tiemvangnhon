@@ -18,7 +18,7 @@
         body {
             background: #000000;
             color: white;
- font-family: 'Open Sans', sans-serif; /* Font mặc định */
+            font-family: 'Open Sans', sans-serif; /* Font mặc định */
             height: 100vh;
             overflow: hidden;
             padding: 5px;
@@ -40,7 +40,7 @@
         }
 
         .banner {
-             height: auto;
+            height: auto;
             width: 100%;
             object-fit: contain;
         }
@@ -61,8 +61,8 @@
             white-space: pre; /* Để nhận dấu cách */
         }
 
-        /* --- Đồng hồ số 24h --- */
-        .digital-clock {
+        /* --- Đồng hồ số 24h với ngày tháng --- */
+        .digital-clock-container {
             background: linear-gradient(135deg, #003cff, #0056ff);
             border: 2px solid #f4dc60;
             border-radius: 15px;
@@ -71,6 +71,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-width: 400px;
         }
 
         .time-display {
@@ -79,6 +80,15 @@
             color: #f4dc60;
             font-family: 'Courier New', monospace;
             letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .date-display {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-top: 10px;
+            text-align: center;
+            line-height: 1.4;
         }
 
         /* --- Nội dung chính --- */
@@ -92,7 +102,7 @@
 
         /* --- Bảng giá vàng --- */
         .gold-section {
-            flex: 3; /* Tăng tỷ lệ để bảng giá vàng chiếm nhiều không gian hơn */
+            flex: 1; /* Chiếm toàn bộ không gian */
             display: flex;
             flex-direction: column;
         }
@@ -129,7 +139,7 @@
         .gold-table th {
             background: linear-gradient(135deg, #003cff, #0056ff);
             color: #ffffff;
-font-family: 'Open Sans', sans-serif; /* Font mặc định */
+            font-family: 'Open Sans', sans-serif; /* Font mặc định */
             font-size: 1.8rem;
             font-weight: bold;
             padding: 25px;
@@ -143,12 +153,10 @@ font-family: 'Open Sans', sans-serif; /* Font mặc định */
         }
 
         .gold-table td {
-
-            background: rgba(255, 0, 0, 0.7);
+            background: rgba(200, 0, 0, 0.9); /* Nền đỏ đậm hơn, ít trong suốt */
             color: #f4dc60;
-               text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Thêm bóng đổ chữ */
-               background: rgba(200, 0, 0, 0.9); /* Nền đỏ đậm hơn, ít trong suốt */
-font-family: 'Open Sans', sans-serif; /* Font mặc định */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Thêm bóng đổ chữ */
+            font-family: 'Open Sans', sans-serif; /* Font mặc định */
             font-size: 1.2rem;
             font-weight: bold;
             padding: 5px 5px;
@@ -168,84 +176,13 @@ font-family: 'Open Sans', sans-serif; /* Font mặc định */
             transition: all 0.3s ease;
         }
 
-        /* --- Sidebar: Lịch (Thu nhỏ) --- */
-        .calendar-section {
-            flex: 0.8; /* Giảm từ 1 xuống 0.8 để lịch nhỏ hơn */
-            display: flex;
-            flex-direction: column;
-            max-width: 300px; /* Giới hạn chiều rộng tối đa */
-        }
-
-        .calendar-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 8px; /* Giảm padding */
-            flex: 1;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(244, 220, 96, 0.3);
-        }
-
-        .lunar-date {
-            color: #f4dc60;
-            font-size: 0.8rem; /* Giảm từ 1.0rem xuống 0.8rem */
-            font-style: italic;
-            margin-bottom: 8px; /* Giảm margin */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-        }
-
-        .calendar h4 {
-            color: #f4dc60;
-            font-size: 1.2rem; /* Giảm từ 1.6rem xuống 1.2rem */
-            margin-bottom: 8px; /* Giảm margin */
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px; /* Giảm từ 4px xuống 2px */
-            font-size: 0.8rem; /* Giảm từ 1.1rem xuống 0.8rem */
-        }
-
-        .calendar-header {
-            color: #ffffff;
-            font-weight: bold;
-            padding: 6px 3px; /* Giảm padding */
-            background: rgba(0, 60, 255, 0.6);
-            border-radius: 3px; /* Giảm border-radius */
-            font-size: 0.7rem; /* Giảm từ 1rem xuống 0.7rem */
-        }
-
-        .calendar-day {
-            color: #f4dc60;
-            padding: 6px 3px; /* Giảm padding */
-            text-align: center;
-            border-radius: 3px; /* Giảm border-radius */
-            transition: all 0.3s ease;
-            font-size: 0.8rem; /* Thêm font-size cụ thể */
-        }
-
-        .calendar-day:hover {
-            background: rgba(244, 220, 96, 0.2);
-        }
-
-        .calendar-day.today {
-            background: #f4dc60;
-            color: #000;
-            font-weight: bold;
-            transform: scale(1.05); /* Giảm scale từ 1.1 xuống 1.05 */
-            box-shadow: 0 0 8px rgba(244, 220, 96, 0.8); /* Giảm shadow */
-        }
-
-
-
         .last-updated {
             color: #ffffff;
             font-size: 1.1rem;
             font-weight: normal;
             opacity: 0.8;
+            text-align: center;
+            margin-top: 15px;
         }
 
         /* --- Trạng thái --- */
@@ -280,12 +217,17 @@ font-family: 'Open Sans', sans-serif; /* Font mặc định */
                 font-size: 1.8rem; /* Giảm font-size */
             }
 
-            .digital-clock {
+            .digital-clock-container {
                 padding: 12px 20px; /* Giảm padding */
+                min-width: 350px;
             }
 
             .time-display {
                 font-size: 2.5rem; /* Giảm font-size */
+            }
+
+            .date-display {
+                font-size: 1.0rem;
             }
 
             .gold-table th {
@@ -304,125 +246,8 @@ font-family: 'Open Sans', sans-serif; /* Font mặc định */
                 height: calc(100% - 40px);
             }
 
-            /* Lịch nhỏ hơn cho TV 32 inch */
-            .calendar-section {
-                flex: 0.6; /* Giảm thêm tỷ lệ */
-                max-width: 250px; /* Giảm chiều rộng tối đa */
-            }
-
-            .calendar-container {
-                padding: 6px; /* Giảm padding */
-            }
-
-            .lunar-date {
-                font-size: 0.7rem; /* Giảm font-size */
-                margin-bottom: 6px;
-            }
-
-            .calendar h4 {
-                font-size: 1.0rem; /* Giảm font-size */
-                margin-bottom: 6px;
-            }
-
-            .calendar-grid {
-                font-size: 0.7rem; /* Giảm font-size */
-                gap: 1px; /* Giảm gap */
-            }
-
-            .calendar-header {
-                padding: 4px 2px; /* Giảm padding */
-                font-size: 0.6rem; /* Giảm font-size */
-            }
-
-            .calendar-day {
-                padding: 4px 2px; /* Giảm padding */
-                font-size: 0.7rem; /* Giảm font-size */
-            }
-
             .last-updated {
                 font-size: 0.9rem; /* Giảm font-size */
-            }
-        }
-        /* --- Phần Ca Dao Tục Ngữ --- */
-.folk-wisdom {
-    margin-top: 55px;
-    padding: 10px;
-    background: rgba(0, 60, 255, 0.2);
-    border-radius: 10px;
-    border: 1px solid rgba(244, 220, 96, 0.3);
-}
-
-.wisdom-title {
-    color: #f4dc60;
-    font-size: 1.0rem;
-    font-weight: bold;
-    margin-bottom: 8px;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-}
-
-.wisdom-content {
-    color: #ffffff;
-    font-size: 0.9rem;
-    font-style: italic;
-    text-align: center;
-    line-height: 1.4;
-}
-
-/* Điều chỉnh cho màn hình nhỏ */
-@media (max-width: 1366px) {
-    .folk-wisdom {
-        padding: 8px;
-        margin-top: 35px;
-    }
-    
-    .wisdom-title {
-        font-size: 0.9rem;
-    }
-    
-    .wisdom-content {
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 1024px) {
-    .wisdom-content {
-        font-size: 0.7rem;
-    }
-}
-
-@media (min-width: 1920px) {
-    .folk-wisdom {
-        padding: 25px;
-        margin-top: 20px;
-    }
-    
-    .wisdom-title {
-        font-size: 1.2rem;
-    }
-    
-    .wisdom-content {
-        font-size: 1.1rem;
-    }
-}
-
-        /* --- Media Queries cho TV nhỏ hơn (nếu cần) --- */
-        @media (max-width: 1024px) {
-            .calendar-section {
-                flex: 0.5;
-                max-width: 200px;
-            }
-
-            .calendar-grid {
-                font-size: 0.6rem;
-            }
-
-            .calendar-header {
-                font-size: 0.5rem;
-            }
-
-            .calendar-day {
-                font-size: 0.6rem;
             }
         }
 
@@ -441,12 +266,17 @@ font-family: 'Open Sans', sans-serif; /* Font mặc định */
                 font-size: 4rem;
             }
 
-            .digital-clock {
+            .digital-clock-container {
                 padding: 25px 40px;
+                min-width: 500px;
             }
 
             .time-display {
                 font-size: 4.5rem;
+            }
+
+            .date-display {
+                font-size: 1.5rem;
             }
 
             .gold-table th {
@@ -465,46 +295,22 @@ font-family: 'Open Sans', sans-serif; /* Font mặc định */
                 height: calc(100% - 50px);
             }
 
-            /* Lịch cho TV lớn nhưng vẫn tương đối nhỏ */
-            .calendar-section {
-                flex: 0.9;
-                max-width: 350px;
-            }
-
-            .lunar-date {
-                font-size: 1.0rem;
-            }
-
-            .calendar h4 {
-                font-size: 1.4rem;
-            }
-
-            .calendar-grid {
-                font-size: 1.0rem;
-            }
-
-            .calendar-header {
-                font-size: 0.8rem;
-            }
-
-            .calendar-day {
-                font-size: 0.9rem;
-            }
-
             .last-updated {
                 font-size: 1.2rem;
             }
         }
+        
         .gold-table th {
-    font-size: 2.0rem !important;
-}
+            font-size: 2.0rem !important;
+        }
 
-.gold-table td {
-    font-size: 2.6rem !important;
-}
-.gold-title {
-    font-size: 2.5rem !important;
-}
+        .gold-table td {
+            font-size: 2.6rem !important;
+        }
+        
+        .gold-title {
+            font-size: 2.5rem !important;
+        }
     </style>
 </head>
 <body>
@@ -516,63 +322,40 @@ font-family: 'Open Sans', sans-serif; /* Font mặc định */
 
     <!-- Tiêu đề và đồng hồ số cùng hàng -->
     <div class="title-section">
-        <h1 class="gold-title">        </h1>
+      
         <h1 class="gold-title">        </h1>
         <h1 class="gold-title">      </h1>
         <h1 class="gold-title">GIÁ VÀNG HÔM NAY</h1>
         <h1 class="gold-title">                     </h1>
-
-        <div class="time-display" id="digitalTime">00:00:00</div>
-
+<div class="time-display" id="digitalTime">00:00:00</div>
+       
+        <div class="date-display" id="dateInfo"></div>
     </div>
 
     <!-- Nội dung chính -->
     <div class="main-content">
-        <!-- Bảng giá vàng (3/4) -->
+        <!-- Bảng giá vàng (toàn bộ không gian) -->
         <div class="gold-section">
             <div class="gold-table-container">
                 <div id="tableContainer">
                     <div class="loading">Đang tải dữ liệu...</div>
                 </div>
             </div>
-        </div>
-
-        <!-- Lịch vạn niên (1/4 - Thu nhỏ) -->
-        <div class="calendar-section">
-            <div class="calendar-container">
-                <div class="lunar-date" id="lunarDate"></div>
-                <div class="calendar">
-                    <h4 id="calendarMonth"></h4>
-                    <div class="calendar-grid" id="calendarGrid"></div>
-                </div>
-                <div class="folk-wisdom">
-        <div class="wisdom-title">Ca Dao Tục Ngữ</div>
-        <div class="wisdom-content" id="folkWisdom"></div>
-    </div>
-                <h1 class="gold-title">        </h1>
-                <h1 class="gold-title">        </h1>
-                <h1 class="gold-title">        </h1>
-                <h1 class="gold-title">        </h1>
-         <div class="last-updated" id="lastUpdated"></div>
-            </div>
+            <div class="last-updated" id="lastUpdated"></div>
         </div>
     </div>
 </div>
 
 <script>
-     const SHEET_ID = '1b5u3h4dl1R_qitdExmbDRn8GdPk3jX6skW9XiF_OJWQ';
-  const API_KEY = 'AIzaSyCKFIJmJftdBoC95PKz5Q3ZqgK3GJPrd0g';
-  const SHEET_NAME = 'Sheet1';
+    const SHEET_ID = '1b5u3h4dl1R_qitdExmbDRn8GdPk3jX6skW9XiF_OJWQ';
+    const API_KEY = 'AIzaSyCKFIJmJftdBoC95PKz5Q3ZqgK3GJPrd0g';
+    const SHEET_NAME = 'Sheet1';
 
     // Biến lưu trữ dữ liệu
     let goldDataCache = null;
     let lastFetchTime = 0;
 
-    function formatNumber(num) {
-        if (!num || num === '') return '';
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
-// Biến quản lý thời gian
+    // Biến quản lý thời gian
     let timeOffset = 0; // Độ lệch thời gian với server (ms)
     let isOnline = false;
     let lastSyncTime = 0;
@@ -646,30 +429,6 @@ font-family: 'Open Sans', sans-serif; /* Font mặc định */
         const now = new Date(Date.now() + timeOffset);
         return now;
     }
-    /* HÀM CẬP NHẬT ĐỒNG HỒ SỐ 24H */
-     function updateDigitalClock() {
-        const now = getCurrentTime();
-
-        // Định dạng thời gian 24h
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        const seconds = now.getSeconds().toString().padStart(2, '0');
-        const timeString = `${hours}:${minutes}:${seconds}`;
-
-        // Cập nhật DOM
-        const timeElement = document.getElementById('digitalTime');
-        if (timeElement) timeElement.textContent = timeString;
-    }
-
-    /* HÀM CẬP NHẬT NGÀY ÂM LỊCH */
-    function updateLunarDate() {
-        const now = new Date();
-        const lunar = getLunarDate(now);
-        const lunarElement = document.getElementById('lunarDate');
-        if (lunarElement) {
-            lunarElement.textContent = `Ngày ${lunar.day} tháng ${lunar.month} năm ${lunar.year} (Âm lịch)`;
-        }
-    }
 
     /* HÀM TÍNH NGÀY ÂM LỊCH */
     function getLunarDate(solarDate) {
@@ -693,50 +452,37 @@ font-family: 'Open Sans', sans-serif; /* Font mặc định */
                Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400) - 32045;
     }
 
-    /* HÀM CẬP NHẬT LỊCH VẠN NIÊN */
-    function updateCalendar() {
-        const now = new Date();
+    /* HÀM CẬP NHẬT ĐỒNG HỒ SỐ VÀ NGÀY THÁNG */
+    function updateDigitalClock() {
+        const now = getCurrentTime();
+
+        // Định dạng thời gian 24h
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        const timeString = `${hours}:${minutes}:${seconds}`;
+
+        // Định dạng ngày dương lịch
+        const day = now.getDate().toString().padStart(2, '0');
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
         const year = now.getFullYear();
-        const month = now.getMonth();
-        const monthNames = [
-            'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
-            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
-        ];
-        const dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+        const solarDateString = `Ngày ${day}/${month}/${year} (Dương lịch)`;
 
-        const calendarMonth = document.getElementById('calendarMonth');
-        if (calendarMonth) {
-            calendarMonth.textContent = `${monthNames[month]} ${year}`;
-        }
+        // Tính ngày âm lịch
+        const lunar = getLunarDate(now);
+        const lunarDateString = `Ngày ${lunar.day} tháng ${lunar.month} năm ${lunar.year} (Âm lịch)`;
 
-        const firstDay = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const today = now.getDate();
-
-        let html = '';
-
-        // Header ngày trong tuần
-        dayNames.forEach(day => {
-            html += `<div class="calendar-header">${day}</div>`;
-        });
-
-        // Các ô trống đầu tháng
-        for (let i = 0; i < firstDay; i++) {
-            html += '<div class="calendar-day"></div>';
-        }
-
-        // Các ngày trong tháng
-        for (let day = 1; day <= daysInMonth; day++) {
-            const isToday = (day === today);
-            html += `<div class="calendar-day ${isToday ? 'today' : ''}">${day}</div>`;
-        }
-
-        const calendarGrid = document.getElementById('calendarGrid');
-        if (calendarGrid) {
-            calendarGrid.innerHTML = html;
+        // Cập nhật DOM
+        const timeElement = document.getElementById('digitalTime');
+        if (timeElement) timeElement.textContent = timeString;
+        
+        const dateElement = document.getElementById('dateInfo');
+        if (dateElement) {
+            dateElement.innerHTML = `${solarDateString}<br>${lunarDateString}`;
         }
     }
-      /* KIỂM TRA VÀ ĐỒNG BỘ THỜI GIAN ĐỊNH KỲ */
+
+    /* KIỂM TRA VÀ ĐỒNG BỘ THỜI GIAN ĐỊNH KỲ */
     function checkAndSyncTime() {
         const now = Date.now();
         if (now - lastSyncTime > SYNC_INTERVAL) {
@@ -868,97 +614,6 @@ font-family: 'Open Sans', sans-serif; /* Font mặc định */
             lastUpdatedElement.textContent = `Cập nhật lần cuối: ${timeString}`;
         }
     }
-    // Kho dữ liệu ca dao tục ngữ phong phú
-const folkWisdomDatabase = [
-    "Ăn quả nhớ kẻ trồng cây",
-    "Có công mài sắt, có ngày nên kim",
-    "Đi một ngày đàng, học một sàng khôn",
-    "Lá lành đùm lá rách",
-    "Thương người như thể thương thân",
-    "Uống nước nhớ nguồn",
-    "Gần mực thì đen, gần đèn thì sáng",
-    "Tốt gỗ hơn tốt nước sơn",
-    "Chớ thấy sóng cả mà ngã tay chèo",
-    "Kiến tha lâu cũng đầy tổ",
-    "Cây ngay không sợ chết đứng",
-    "Đói cho sạch, rách cho thơm",
-    "Học thầy không tày học bạn",
-    "Một cây làm chẳng nên non, ba cây chụm lại nên hòn núi cao",
-    "Nhập gia tùy tục",
-    "Ở hiền gặp lành",
-    "Rừng vàng biển bạc",
-    "Tay làm hàm nhai, tay quai miệng trễ",
-    "Yêu nhau yêu cả đường đi, ghét nhau ghét cả tông chi họ hàng",
-    "Bán anh em xa mua láng giềng gần"
-];
-
-// Thêm các câu theo chủ đề ngày lễ
-const holidayWisdom = {
-    "01/01": "Năm mới an khang thịnh vượng",
-    "30/04": "Nhớ ơn các anh hùng liệt sĩ",
-    "01/05": "Ngày Quốc tế Lao động",
-    "02/09": "Quốc khánh Việt Nam",
-    "15/08": "Tết Trung thu - Đêm hội trăng rằm",
-    "20/11": "Tôn sư trọng đạo"
-};
- /* HÀM LẤY CA DAO TỤC NGỮ TỪ LOCAL */
-function getFolkWisdom() {
-    const now = new Date();
-    const todayKey = `${now.getDate()}/${now.getMonth() + 1}`;
-    
-    // Kiểm tra nếu là ngày lễ thì trả về câu phù hợp
-    if (holidayWisdom[todayKey]) {
-        return holidayWisdom[todayKey];
-    }
-    
-    // Tính index dựa trên ngày trong tháng để có câu ổn định mỗi ngày
-    const dayOfMonth = now.getDate();
-    const index = dayOfMonth % folkWisdomDatabase.length;
-    
-    return folkWisdomDatabase[index];
-}
-
-/* HÀM CẬP NHẬT CA DAO TỤC NGỮ */
-function updateFolkWisdom() {
-    const wisdomElement = document.getElementById('folkWisdom');
-    if (!wisdomElement) return;
-    
-    const wisdom = getFolkWisdom();
-    wisdomElement.textContent = `"${wisdom}"`;
-    
-    // Lưu vào localStorage để theo dõi
-    localStorage.setItem('lastFolkWisdom', wisdom);
-    localStorage.setItem('lastFolkWisdomTime', Date.now());
-}
-
-function startWisdomRotation() {
-    // Đổi câu mỗi giờ (có thể điều chỉnh thời gian)
-    setInterval(() => {
-        updateFolkWisdom();
-        
-        // Hiệu ứng fade
-        const wisdomElement = document.getElementById('folkWisdom');
-        if (wisdomElement) {
-            wisdomElement.style.opacity = '0';
-            setTimeout(() => {
-                wisdomElement.style.opacity = '1';
-            }, 500);
-        }
-    }, 60 * 60 * 1000); // 1 giờ
-}
-
-    /* LỊCH CẬP NHẬT HÀNG NGÀY */
-    function scheduleDailyUpdates() {
-        const now = new Date();
-        const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-        const msUntilMidnight = tomorrow.getTime() - now.getTime();
-
-        setTimeout(() => {
-            updateLunarDate();
-            updateCalendar();
-            scheduleDailyUpdates(); // Lặp lại cho ngày tiếp theo
-        }, msUntilMidnight + 1000); // +1 giây để đảm bảo đã qua midnight
-    }
 
     /* KHỞI TẠO ỨNG DỤNG */
     function init() {
@@ -966,21 +621,14 @@ function startWisdomRotation() {
 
         // Tải dữ liệu ban đầu
         fetchGoldData();
-        // ca dao tục ngữ
-updateFolkWisdom();
-    startWisdomRotation();
-        // Khởi tạo đồng hồ và lịch
+
+        // Khởi tạo đồng hồ và ngày tháng
         updateDigitalClock();
-        updateLunarDate();
-        updateCalendar();
 
         // Thiết lập intervals
-         setInterval(updateDigitalClock, 1000); // Cập nhật đồng hồ mỗi giây
+        setInterval(updateDigitalClock, 1000); // Cập nhật đồng hồ mỗi giây
         setInterval(fetchGoldData, 30000); // Tải dữ liệu mỗi 30 giây
         setInterval(checkAndSyncTime, 60000); // Kiểm tra đồng bộ thời gian mỗi phút
-
-        // Lịch cập nhật hàng ngày
-        scheduleDailyUpdates();
 
         console.log('Ứng dụng đã khởi tạo thành công');
     }
