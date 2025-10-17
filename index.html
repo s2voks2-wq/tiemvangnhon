@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -48,29 +49,32 @@
         /* --- Tiêu đề và đồng hồ số cùng hàng --- */
         .title-section {
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-around;
             align-items: center;
-            margin: -10px 20px 20px 20px; /* Di chuyển lên trên */
+            margin: -40px 20px 10px 20px; /* Di chuyển lên trên */
+             position: relative;
+    z-index: 5; /* giúp chữ hiển thị trên banner nếu bị chồng */
         }
 
         .gold-title {
-            color: #ff0000;
+            color: #ffffff;
             font-size: 2.0rem;
             font-weight: bold;
             margin: 0;
             white-space: pre; /* Để nhận dấu cách */
+            vertical-align: bottom;
         }
 
         /* --- Đồng hồ số 24h với ngày tháng --- */
         .digital-clock-container {
-            background: linear-gradient(135deg, #003cff, #0056ff);
-            border: 2px solid #f4dc60;
-            border-radius: 15px;
+             display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
             padding: 20px 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             min-width: 400px;
         }
 
@@ -80,7 +84,8 @@
             color: #f4dc60;
             font-family: 'Courier New', monospace;
             letter-spacing: 2px;
-            line-height: 1.2;
+            line-height: 1.1;
+             margin-bottom: 2px;
         }
 
         .date-display {
@@ -88,7 +93,8 @@
             color: #ffffff;
             margin-top: 10px;
             text-align: center;
-            line-height: 1.4;
+            line-height: 1.2;
+            margin-top: 0;
         }
 
         /* --- Nội dung chính --- */
@@ -97,7 +103,7 @@
             display: flex;
             gap: 20px;
             overflow: hidden;
-            margin-top: -15px; /* Đưa main-content lên trên */
+            margin-top: -40px; /* Đưa main-content lên trên */
         }
 
         /* --- Bảng giá vàng --- */
@@ -177,7 +183,7 @@
         }
 
         .last-updated {
-            color: #ffffff;
+            color: #eeff00;
             font-size: 1.1rem;
             font-weight: normal;
             opacity: 0.8;
@@ -258,7 +264,7 @@
             }
 
             .banner {
-                height: 280px;
+                height: 350px;
                 width: 1500px;
             }
 
@@ -296,21 +302,29 @@
             }
 
             .last-updated {
-                font-size: 1.3rem;
+                font-size: 1.5rem;
             }
         }
-        
+         .time-display {
+                font-size: 1.3rem !important;
+            }
+
+        .date-display {
+                font-size: 0.9rem !important;
+            }
+
         .gold-table th {
-            font-size: 2.0rem !important;
+            font-size: 1.3rem !important;
         }
 
         .gold-table td {
-            font-size: 2.6rem !important;
+            font-size: 1.5rem !important;
         }
         
         .gold-title {
-            font-size: 2.6rem !important;
+            font-size: 1.4rem !important;
         }
+
     </style>
 </head>
 <body>
@@ -322,14 +336,17 @@
 
     <!-- Tiêu đề và đồng hồ số cùng hàng -->
     <div class="title-section">
-      
         <h1 class="gold-title">           </h1>
-        <h1 class="gold-title">         </h1>
+        <h1 class="gold-title">           </h1>
         <h1 class="gold-title">GIÁ VÀNG HÔM NAY</h1>
-        <h1 class="gold-title">                     </h1>
-<div class="time-display" id="digitalTime">00:00:00</div>
-       
-        <div class="date-display" id="dateInfo"></div>
+        <h1 class="gold-title">            </h1>
+        <h1 class="gold-title">            </h1>
+    
+    <div class="time-display" id="digitalTime">00:00:00</div>
+    <div class="date-display" id="dateInfo">
+</div>
+        <!-- <div class="time-display" id="digitalTime">00:00:00</div>
+        <div class="date-display" id="dateInfo"></div> -->
     </div>
 
     <!-- Nội dung chính -->
@@ -341,14 +358,14 @@
                     <div class="loading">Đang tải dữ liệu...</div>
                 </div>
             </div>
-            <h1class="last-updated" CHẤT LƯỢNG VÀNG - NIỀM TIN VÀNG</h1>
+            <!-- <h1 class="last-updated"> CHẤT LƯỢNG VÀNG - NIỀM TIN VÀNG</h1> -->
         </div>
     </div>
 </div>
 
 <script>
-    const SHEET_ID = '1v4s-tgmpa9OXsbl12aHt_2sl2n16zA0vRR4FkCkSJz8';
-    const API_KEY = 'AIzaSyCKFIJmJftdBoC95PKz5Q3ZqgK3GJPrd0g';
+    const SHEET_ID = '1xQT8o8ZlNr1p3GBhfIQLZK7kMpxWzs41baPUr1Z8c4E';
+    const API_KEY = 'AIzaSyCA4tdg8MbifZgZLkNtQxKeBpK3qvVhpm4';
     const SHEET_NAME = 'Sheet1';
 
     // Biến lưu trữ dữ liệu
@@ -647,4 +664,3 @@
 </script>
 </body>
 </html>
-
