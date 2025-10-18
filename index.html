@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DNTN KINH DOANH VÀNG BẠC - NHƠN</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
@@ -526,60 +527,23 @@
     }
 
     /* TẢI DỮ LIỆU TỪ GOOGLE SHEETS */
-    async function fetchGoldData() {
-        const tableContainer = document.getElementById('tableContainer');
+   async function fetchGoldData() {
+  const tableContainer = document.getElementById('tableContainer');
+  try {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+    const response = await fetch(url);
+    const text = await response.text();
 
-        try {
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-
-            const data = await response.json();
-
-            if (data.values && data.values.length > 0) {
-                saveToLocal(data.values);
-                renderTable(data.values);
-                updateLastUpdatedTime();
-                console.log('Dữ liệu đã được cập nhật từ Google Sheets');
-            } else {
-                throw new Error('Không có dữ liệu trong bảng');
-            }
-        } catch (error) {
-            console.error("Lỗi tải dữ liệu:", error);
-
-            // Thử tải từ cache
-            const localData = loadFromLocal();
-            if (localData && localData.length > 0) {
-                renderTable(localData);
-                if (tableContainer) {
-                    const errorNote = document.createElement('div');
-                    errorNote.style.cssText = `
-                        position: absolute;
-                        top: 10px;
-                        right: 10px;
-                        background: rgba(255, 0, 0, 0.8);
-                        color: white;
-                        padding: 5px 10px;
-                        border-radius: 5px;
-                        font-size: 0.8rem;
-                        z-index: 10;
-                    `;
-                    errorNote.textContent = 'Offline - Dữ liệu cache';
-                    tableContainer.style.position = 'relative';
-                    tableContainer.appendChild(errorNote);
-                }
-                console.log('Hiển thị dữ liệu từ cache do mất kết nối');
-            } else {
-                if (tableContainer) {
-                    tableContainer.innerHTML = '<div class="error">Không thể tải dữ liệu. Vui lòng kiểm tra kết nối mạng.</div>';
-                }
-            }
-            updateLastUpdatedTime();
-        }
-    }
+    // Google Sheets JSON trả về có phần đầu/trailer cần cắt bỏ
+    const json = JSON.parse(text.substr(47).slice(0, -2));
+    const rows = json.table.rows.map(r => r.c.map(c => (c ? c.v : '')));
+    const headers = json.table.cols.map(c => c.label);
+    renderTable([headers, ...rows]);
+  } catch (error) {
+    console.error("Lỗi tải dữ liệu:", error);
+    tableContainer.innerHTML = '<div class="error">Không thể tải dữ liệu. Kiểm tra kết nối.</div>';
+  }
+}
 
     /* HIỂN THỊ BẢNG DỮ LIỆU */
     function renderTable(data) {
